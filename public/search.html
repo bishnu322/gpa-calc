@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate</title>
+    <!-- css file -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <nav id="nav">
+        <div class="container">
+            <div id="nav-inner">
+                <div class="logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png"
+                        style="width: 50px;margin-right: 10px;">
+                    <strong>GPA CALC</strong>
+                </div>
+
+                <img onclick="openMenu()" id="menu-icon"
+                    src="https://icon-library.com/images/menu-icon-white/menu-icon-white-2.jpg">
+                <ul class="underline" id="underline">
+                    <li>
+                        <a href="/">Create GPA data</a>
+                    </li>
+                    <li>
+                        <a href="/search">Search data</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div onclick="closeMenu()" id="mobile-nav-back">
+
+    </div>
+
+    <div style="font: size 25px; margin-top:20px;text-align: center;line-height: 25px;font-weight: bold;">
+        <q>SEARCH <span style="background-color: #f80f07;color: #effc41;">PERCENTAGE, SGPA AND CGPA</span> BY YOUR
+            USN</q>
+    </div>
+
+    <div class="form">
+        <input type="text" id="usn-no" placeholder="Usn no" style="width: 100%;">
+        <button id="search-btn" onclick="getMark()"><strong>SEARCH</strong></button>
+        <br>
+        <div id="ajax-resp">
+
+        </div>
+    </div>
+
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        let openMenu = function () {
+            document.getElementById("mobile-nav-back").style.left = "0";
+            document.getElementById("underline").style.top = "50%";
+        }
+        let closeMenu = function () {
+            document.getElementById("mobile-nav-back").style.left = "-100%";
+            document.getElementById("underline").style.top = "-100%";
+        }
+    </script>
+
+    <script>
+        const getMark = () => {
+            document.getElementById("search-btn").innerHTML = "<img src='https://i.pinimg.com/originals/5c/87/9a/5c879ab8cba794923686df4b950f497b.gif' style='width:30px;'>"
+
+            axios.get(`/api/mark?usn=${document.getElementById("usn-no").value}`).then(function (resp) {
+                document.getElementById("search-btn").innerHTML = "SEARCH";
+
+                if (resp.data.marks.length == 0) {
+                    alert("No record found");
+
+                    document.getElementById("ajax-resp").innerHTML = "";
+                } else {
+                    document.getElementById("ajax-resp").innerHTML = "";
+
+                    resp.data.marks.forEach(m => {
+                        document.getElementById("ajax-resp").insertAdjacentHTML("beforeend", `
+                            <div style="background:#aaa;height:3px;margin:20px 0;"></div>
+                            <h2 class="output-text">
+                                <span>CGPA: <span id="display-value-${m._id}">${m.cgpa}</span></span>
+                            </h2>
+                            <br>
+                            <h2 class="output-text">
+                                <span>Percentage: <span id="display-percent-${m._id}">${m.percentage}%</span></span>
+                            </h2>
+                            <br>
+                            <h2 class="output-text">
+                                <span>SGPA: <span id="display-sgpavalue-${m._id}">${m.sgpa}</span></span>
+                            </h2>
+                            <br>
+                            <h2 class="output-text">
+                                <div>Subject:</div>
+                                <div id="display-sub-${m._id}" style="margin-top: 5px;">
+
+                                </div>
+                            </h2>
+                        `)
+
+                        m.subject.forEach(s => {
+                            document.getElementById(`display-sub-${m._id}`).insertAdjacentHTML("beforeend", `
+                                <div style="margin-top:5px;">
+                                    <span>${s.name}</span> = 
+                                    <span>${s.marks}</span>
+                                </ div>
+                            `)
+                        })
+
+                        if (m.percentage < 40) {
+                            document.getElementById("display-value-" + m._id).style.color = "red";
+                            document.getElementById("display-percent-" + m._id).style.color = "red";
+                            document.getElementById("display-sgpavalue-" + m._id).style.color = "red";
+
+                        } else {
+                            document.getElementById("display-value-" + m._id).style.color = "green";
+                            document.getElementById("display-percent-" + m._id).style.color = "green";
+                            document.getElementById("display-sgpavalue-" + m._id).style.color = "green";
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

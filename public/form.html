@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- css file -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 10px;
+        }
+
+        input {
+            padding: 5px 10px;
+        }
+
+        .columns {
+            width: 48%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .columns {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="nav">
+        <div class="container">
+            <div id="nav-inner">
+                <div class="logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png"
+                        style="width: 50px;margin-right: 10px;">
+                    <strong>GPA CALC</strong>
+                </div>
+
+                <img onclick="openMenu()" id="menu-icon"
+                    src="https://icon-library.com/images/menu-icon-white/menu-icon-white-2.jpg">
+                <ul class="underline" id="underline">
+                    <li>
+                        <a href="/">Create GPA data</a>
+                    </li>
+                    <li>
+                        <a href="/search">Search data</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div onclick="closeMenu()" id="mobile-nav-back">
+
+    </div>
+
+    <div class="container" style="margin-top: 15px;font-size:17px;">Total Marks is <strong>300</strong></div>
+
+    <section class="container">
+        <form id="submit-form" style="margin-top: 20px;">
+            <div id="form-wrap" style="display: flex;flex-wrap: wrap;justify-content: space-between;">
+
+            </div>
+            <center>
+                <button>SUBMIT</button>
+            </center>
+        </form>
+    </section>
+
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        let openMenu = function () {
+            document.getElementById("mobile-nav-back").style.left = "0";
+            document.getElementById("underline").style.top = "50%";
+        }
+        let closeMenu = function () {
+            document.getElementById("mobile-nav-back").style.left = "-100%";
+            document.getElementById("underline").style.top = "-100%";
+        }
+    </script>
+
+    <script>
+        let subObj = [
+            {
+                sem: "1",
+                branch: "cse",
+                subCode: ["18CS11", "18CS12", "18CS13"]
+            },
+            {
+                sem: "1",
+                branch: "me",
+                subCode: ["18ME11", "18ME12", "18ME13"]
+            },
+            {
+                sem: "1",
+                branch: "civil",
+                subCode: ["18CIV11", "18CIV12", "18CIV13"]
+            },
+            {
+                sem: "1",
+                branch: "eee",
+                subCode: ["18EEE11", "18EEE12", "18EEE13"]
+            },
+            {
+                sem: "2",
+                branch: "cse",
+                subCode: ["18CS21", "18CS22", "18CS23"]
+            },
+            {
+                sem: "2",
+                branch: "me",
+                subCode: ["18ME21", "18ME22", "18ME23"]
+            },
+            {
+                sem: "2",
+                branch: "civil",
+                subCode: ["18CIV21", "18CIV22", "18CIV23"]
+            },
+            {
+                sem: "2",
+                branch: "eee",
+                subCode: ["18EEE21", "18EEE22", "18EEE23"]
+            },
+            {
+                sem: "3",
+                branch: "cse",
+                subCode: ["18CS31", "18CS32", "18CS33"]
+            },
+            {
+                sem: "3",
+                branch: "me",
+                subCode: ["18ME31", "18ME32", "18ME33"]
+            },
+            {
+                sem: "3",
+                branch: "civil",
+                subCode: ["18CIV31", "18CIV32", "18CIV33"]
+            },
+            {
+                sem: "3",
+                branch: "eee",
+                subCode: ["18EEE31", "18EEE32", "18EEE33"]
+            },
+            {
+                sem: "4",
+                branch: "cse",
+                subCode: ["18CS41", "18CS42", "18CS43"]
+            },
+            {
+                sem: "4",
+                branch: "me",
+                subCode: ["18ME41", "18ME42", "18ME43"]
+            },
+            {
+                sem: "4",
+                branch: "civil",
+                subCode: ["18CIV41", "18CIV42", "18CIV43"]
+            },
+            {
+                sem: "4",
+                branch: "eee",
+                subCode: ["18EEE41", "18EEE42", "18EEE43"]
+            },
+            {
+                sem: "5",
+                branch: "cse",
+                subCode: ["18CS51", "18CS52", "18CS53"]
+            },
+            {
+                sem: "5",
+                branch: "me",
+                subCode: ["18ME51", "18ME52", "18ME53"]
+            },
+            {
+                sem: "5",
+                branch: "civil",
+                subCode: ["18CIV51", "18CIV52", "18CIV53"]
+            },
+            {
+                sem: "5",
+                branch: "eee",
+                subCode: ["18EEE51", "18EEE52", "18EEE53"]
+            },
+            {
+                sem: "6",
+                branch: "cse",
+                subCode: ["18CS61", "18CS62", "18CS63"]
+            },
+            {
+                sem: "6",
+                branch: "me",
+                subCode: ["18ME61", "18ME62", "18ME63"]
+            },
+            {
+                sem: "6",
+                branch: "civil",
+                subCode: ["18CIV61", "18CIV62", "18CIV63"]
+            },
+            {
+                sem: "6",
+                branch: "eee",
+                subCode: ["18EEE61", "18EEE62", "18EEE63"]
+            },
+            {
+                sem: "7",
+                branch: "cse",
+                subCode: ["18CS71", "18CS72", "18CS73"]
+            },
+            {
+                sem: "7",
+                branch: "me",
+                subCode: ["18ME71", "18ME72", "18ME73"]
+            },
+            {
+                sem: "7",
+                branch: "civil",
+                subCode: ["18CIV71", "18CIV72", "18CIV73"]
+            },
+            {
+                sem: "7",
+                branch: "eee",
+                subCode: ["18EEE71", "18EEE72", "18EEE73"]
+            },
+            {
+                sem: "8",
+                branch: "cse",
+                subCode: ["18CS81", "18CS82", "18CS83"]
+            },
+            {
+                sem: "8",
+                branch: "me",
+                subCode: ["18ME81", "18ME82", "18ME83"]
+            },
+            {
+                sem: "8",
+                branch: "civil",
+                subCode: ["18CIV81", "18CIV82", "18CIV83"]
+            },
+            {
+                sem: "8",
+                branch: "eee",
+                subCode: ["18EEE81", "18EEE82", "18EEE83"]
+            }
+        ]
+    </script>
+
+    <script>
+        subObj.forEach(data => {
+            if (localStorage.getItem("sem") == data.sem && localStorage.getItem("branch") == data.branch) {
+                data.subCode.forEach(s => {
+                    document.getElementById("form-wrap").insertAdjacentHTML("beforeend", `
+                        <div class="columns" style="display:flex;margin-bottom:20px;align-items:center;">
+                            <span>${s}</span>
+                            <input required type="text" name="${s}" class="sub-input" placeholder="${s}" style="width:100%;margin-left:10px;">
+                        </div>
+                    `)
+                })
+            }
+        })
+    </script>
+
+    <script>
+        let totalMarks = 300;
+        let obtainedMarks = 0;
+        let totalPercentage = null;
+        let totalGpa = null;
+        let totalsgpa = null;
+        let subArr = [];
+
+        const assignMarks = (e) => {
+            e.preventDefault();
+
+            let subInput = document.getElementsByClassName("sub-input");
+            for (let i = 0; i < subInput.length; i++) {
+                const element = subInput[i];
+                obtainedMarks += parseInt(element.value);
+
+                subArr.push({
+                    marks: element.value,
+                    name: element.getAttribute("name")
+                });
+            }
+
+            calcPercent();
+            calcGpa();
+            calcsgpa();
+
+            // submit form
+            addMark();
+        }
+        document.getElementById("submit-form").addEventListener("submit", assignMarks);
+
+        const calcPercent = () => {
+            totalPercentage = (obtainedMarks / totalMarks) * 100;
+        }
+
+        const calcGpa = () => {
+            totalGpa = totalPercentage / 9.5;
+        }
+
+        const calcsgpa = () => {
+            totalsgpa = (totalPercentage / 10) + 0.76;
+            totalsgpa = (totalPercentage + 7.5) / 10;
+        }
+    </script>
+
+    <script>
+        const addMark = () => {
+            // document.getElementById("submit-btn").innerHTML = "<img src='https://i.pinimg.com/originals/5c/87/9a/5c879ab8cba794923686df4b950f497b.gif' style='width:30px;'>"
+            axios.post("/api/addmark", {
+                percentage: totalPercentage,
+                cgpa: totalGpa,
+                sgpa: totalsgpa,
+                usn: localStorage.getItem("usn"),
+                subject: subArr,
+                sem: localStorage.getItem("sem"),
+                branch: localStorage.getItem("branch")
+            }).then(function (resp) {
+                location.reload();
+            })
+        }
+    </script>
+</body>
+
+</html>

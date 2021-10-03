@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate</title>
+    <!-- css file -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <nav id="nav">
+        <div class="container">
+            <div id="nav-inner">
+                <div class="logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png"
+                        style="width: 50px;margin-right: 10px;">
+                    <strong>GPA CALC</strong>
+                </div>
+
+                <img onclick="openMenu()" id="menu-icon"
+                    src="https://icon-library.com/images/menu-icon-white/menu-icon-white-2.jpg">
+                <ul class="underline" id="underline">
+                    <li>
+                        <a href="/">Create GPA data</a>
+                    </li>
+                    <li>
+                        <a href="/search">Search data</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div onclick="closeMenu()" id="mobile-nav-back">
+
+    </div>
+
+    <div style="font: size 25px; margin-top:20px;text-align: center;line-height: 25px;font-weight: bold;">
+        <q>SAVE YOUR <span style="background-color: #f80f07;color: #effc41;">PERCENTAGE, SGPA AND CGPA</span> IN OUR RECORD</q>
+    </div>
+
+    <form id="index-form" class="form">
+        <div class="form-row" style="margin-bottom: 16px;">
+            <strong class="form-title-text">Enter Usn no:</strong>
+            <input type="text" id="usn-no" placeholder="Usn no" required>
+        </div>
+        <div style="background: #ddd;height: 1px;"></div>
+        <div class="form-row" style="margin: 16px 0;">
+            <strong class="form-title-text">Choose Branch:</strong>
+            <select id="branch-select" required>
+                <option value="">Choose Branch</option>
+                <option value="cse">CSE</option>
+                <option value="me">ME</option>
+                <option value="civil">CIVIL</option>
+                <option value="eee">EEE</option>
+            </select>
+        </div>
+        <div style="background: #ddd;height: 1px;"></div>
+        <div class="form-row" style="margin-top: 16px;">
+            <strong class="form-title-text">Choose Sem:</strong>
+            <select id="sem-select" required>
+                <option value="">Choose Sem</option>
+                <option value="1">1st Sem</option>
+                <option value="2">2nd Sem</option>
+                <option value="3">3rd Sem</option>
+                <option value="4">4th Sem</option>
+                <option value="5">5th Sem</option>
+                <option value="6">6th Sem</option>
+                <option value="7">7th Sem</option>
+                <option value="8">8th Sem</option>
+            </select>
+        </div>
+        <button><strong>NEXT</strong></button>
+    </form>
+
+    <script>
+        let openMenu = function () {
+            document.getElementById("mobile-nav-back").style.left = "0";
+            document.getElementById("underline").style.top = "50%";
+        }
+        let closeMenu = function () {
+            document.getElementById("mobile-nav-back").style.left = "-100%";
+            document.getElementById("underline").style.top = "-100%";
+        }
+
+        const storeData = (e) => {
+            e.preventDefault();
+
+            localStorage.setItem("usn", document.getElementById("usn-no").value)
+            localStorage.setItem("sem", document.getElementById("sem-select").value)
+            localStorage.setItem("branch", document.getElementById("branch-select").value)
+
+            location.href = "/form";
+        }
+        document.getElementById("index-form").addEventListener("submit", storeData);
+    </script>
+</body>
+
+</html>

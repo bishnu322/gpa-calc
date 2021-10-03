@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+
+}
+
+body{
+    overflow-x: hidden;
+}
+
+.container{
+    margin: auto;
+    width: 70%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#nav{
+    background: #333;
+    padding: 10px 0;
+    color: #fff;
+}
+
+#nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#menu-icon {
+    display: none;
+}
+
+.underline {
+    display: flex;
+}
+
+#nav .underline li {
+    list-style-type: none;
+    padding-right: 30px;
+}
+
+#nav .underline li a {
+    background: #fff;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 13.33px;
+}
+
+#nav .underline li a:hover{
+    background: #f80f07;
+    color: #fff;
+}
+
+.form {
+    width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 24px;
+    box-shadow:  3px 3px 25px #e0e0e0,
+             -3px -3px 25px #ffffff;
+}
+
+.form-title-text{
+    font-size: 18px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form button {
+    width: 100%;
+    background: #f80f07;
+    color: #fff;
+    padding: 16px 0;
+    border-radius: 4px;
+    border: none;
+    margin-top: 30px;
+    font-size: 15px;
+}
+
+.form strong{
+    width: 35%;
+}
+
+.form input {
+    padding: 10px;
+    width: 60%;
+    border: 1px solid #999;
+}
+.form select {
+    padding: 10px;
+    width: 60%;
+    border: 1px solid #999;
+}
+
+.output-text{
+    font-size: 19px;
+}
+
+/* media queries */
+@media only screen and (max-width: 720px) {
+    .container{
+        margin: auto;
+        width: 90%;
+    }
+
+    #menu-icon {
+        display: inline-block;
+        width: 30px;
+    }
+
+    .underline {
+        transition: 0.2s;
+        display: block;
+        position: fixed;
+        top: -100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
+
+    #nav .underline li {
+        margin-top: 45px;
+        padding-right: 0;
+    }
+
+    #nav .underline li a {
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+        background-color: rgb(248, 15, 7);
+        color: #fff;
+        border-radius: 4px;
+    }
+
+    #mobile-nav-back {
+        background: rgba(0, 0, 0, 0.6);
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        left: -100%;
+    }
+
+    .form {
+        width: 90%;
+        margin-top: 15px;
+    }
+
+    .form-title-text{
+        font-size: 15px;
+    }
+
+    .output-text{
+        font-size: 17px;
+    }
+}
